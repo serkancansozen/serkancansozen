@@ -1,0 +1,137 @@
+#Başkent Ekspres   
+
+    
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using System.Data.OleDb;
+
+    namespace bilettt
+    {
+        public partial class Form1 : Form
+        {
+            public Form1()
+            {
+                InitializeComponent();
+            }
+            OleDbConnection baglantı = new OleDbConnection("------------------------------------");
+            OleDbCommand komut = new OleDbCommand();
+            private void verilerigöster()
+            {
+                listView1.Items.Clear();
+                baglantı.Open();
+                OleDbCommand komut = new OleDbCommand();
+                komut.Connection = baglantı;
+                komut.CommandText = "select * from tablo 1";
+                OleDbDataReader oku = komut.ExecuteReader();
+                while (oku.Read()) ;
+                {
+                    ListViewItem ekle = new ListViewItem();
+                    ekle.Text = oku["SeferNo"].ToString();
+                    ekle.SubItems.Add(oku["Tarih"]).ToString();
+                    ekle.SubItems.Add(oku["Saat"]).ToString();
+                    ekle.SubItems.Add(oku["AdSoyad"]).ToString();
+                    ekle.SubItems.Add(oku["Telefon"]).ToString();
+                    ekle.SubItems.Add(oku["KoltukNo"]).ToString();
+                    ekle.SubItems.Add(oku["Ücret"]).ToString();
+                    ekle.SubItems.Add(oku["Cinsiyet"]).ToString();
+                    ekle.SubItems.Add(oku["Vagon"]).ToString();
+                    listView1.Items.Add(ekle);
+                }
+                baglantı.Close();
+            }
+            private void button1_Click(object sender, EventArgs e)
+            {
+                verilerigöster();
+            }
+
+            private void button1_Click_1(object sender, EventArgs e)
+            {
+                verilerigöster();
+                textBox1.Clear();
+                textBox2.Clear();
+                textBox3.Clear();
+                textBox4.Clear();
+                textBox5.Clear();
+                textBox6.Clear();
+                textBox7.Clear();
+                textBox8.Clear();
+                comboBox1.Text = "";
+                comboBox2.Text = "";
+            }
+
+            private void label1_Click(object sender, EventArgs e)
+            {
+
+            }
+
+            private void label5_Click(object sender, EventArgs e)
+            {
+
+            }
+
+            private void button2_Click(object sender, EventArgs e)
+            {
+                baglantı.Open();
+                OleDbCommand komut = new OleDbCommand("insert into Bilgiler (SeferNo, Tarih,Saat,AdSoyad,Telefon,KoltukNo,Ücret,Cinsiyet,Vagon) values ('" + textBox1.Text.ToString() + "','" + textBox2.Text.ToString() + "','" + textBox3.Text.ToString() + "','" + textBox4.Text.ToString() + "','" + textBox5.Text.ToString() + "','" + textBox6.Text.ToString() + "','" + textBox7.Text.ToString() + "','" + comboBox1.Text.ToString() + "','" + comboBox2.Text.ToString() + "',)", baglantı);
+                komut.ExecuteNonQuery();
+                baglantı.Close();
+                verilerigöster();
+
+            }
+
+            private void groupBox1_Enter(object sender, EventArgs e)
+            {
+
+            }
+
+            private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+            {
+            
+            }
+
+            private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+            {
+
+            }
+
+            private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                comboBox1.Enabled = false;
+
+            }
+
+            private void button3_Click(object sender, EventArgs e)
+            {
+                baglanti.Open();
+                komut.Connection = baglantı;
+                komut.CommandText = "delete  from Tablo1 where AdSoyad = '" + textBox4.Text + "'";
+                komut.ExecuteNonQuery();
+                baglantı.Close();
+                verilerigöster();
+
+
+            }
+
+            private void textBox8_TextChanged(object sender, EventArgs e)
+            {
+
+            }
+
+            private void button4_Click(object sender, EventArgs e)
+            {
+                baglantı.Open();
+                komut.Connection = baglantı();
+                komut.CommandText("update bilgiler set SeferNo = " + textBox1.Text +"',Tarih = '"+ textBox2.Text + "',Saat = '" + textBox3.Text + "', Telefon = '" + textBox5.Text + "',KoltukNo = '" + textBox6.Text + "',Ücret =  '" + textBox7.Text + "' ,Cinsiyet = '" + comboBox1.Text + "'Vagon ='"+ comboBox2.Text + "'where AdSoyad='" textbox.4+Text+"'" );
+                komut.ExecuteNonQuery();
+                baglantı.Close();
+                verilerigöster();
+            }
+        }
+    }
